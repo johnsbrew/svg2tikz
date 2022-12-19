@@ -1,0 +1,79 @@
+# FILE_IO:
+INPUT_DIR :  ".."
+INPUT_FILENAME :  "rsc/complex_formatted_text.svg"
+OUTPUT_DIR: ".."
+OUTPUT_FILENAME :  "text.tex"
+
+DEP_DIR: "graphics" # relative to OUTPUT_DIR, used for extracted files
+
+# TEX_OPTIONS:
+STANDALONE_TEX: False #True :  ready to compile .tex file ; False :  intended to be included with \input
+NO_SCALE_DEF: True # skip scale def to allow external control
+NO_COLOR_DEFS: True # skip color defs to allow external control
+
+TEX_SCALE_FACTOR: 0.28 # default value of scaling factor for the entire tikzpicture (generic parameter)
+
+# SVG_PARSER:
+FORCE_NEW_EXTRACTION: False # avoid requiring asar extraction if the file is found in the output directory
+DISPLAY_CONTROL_POINTS: False # debug purpose; green :  Q ; orange :  C
+DISPLAY_TXT_ANCHOR: False
+# Quadratic Bezier curves (svg: Q) seems to be rendered differently in Tikz even with the same control points
+# The following parameters provide fine-tuning abilities
+# The 2 percentage allows getting a result closer to the original intent
+# These parameters only applies to quadratic Bezier curves (a single control point)
+# NB: Cubic Bezier curves (svg: C) (2 control points) are rendered without requiring such adjustments
+JOIN_QQ_AS_C: True # better rendering of paths (remove a useless middle point which breaks the curve)
+QQ_AS_C_STRENGTH_PERCENT_X: 120 # empirical percentage to get closer to original intent
+QQ_AS_C_STRENGTH_PERCENT_Y: 120 # empirical percentage to get closer to original intent
+FORCE_Q_AS_C: True # required to modulate Q strength ; not impact with Q_AS_C_STRENGTH_PERCENT :  100
+Q_AS_C_STRENGTH_PERCENT: 70 # empirical percentage to get closer to original intent
+
+# MX_PARSER
+# highly manual and SENSITIVE parameters used to fix alignment in weird cases 
+IGNORE_MXTEXT_NEWLINES: False
+MAX_ELT_FOR_TXT_NODE: 0
+
+# ANIMATE
+OVERLAYS:
+  default: ""
+
+# DATABASE OF mxgraph.shapes to their equivalent number of statements 
+MXGRAPH_SHAPES:
+  callout: 1
+  cloud: 1
+  datastore: 2
+  filledEdge: 1 # very poor style when dimming opacity => should not be used...
+  note: 3
+  rect: 1
+  step: 1
+  flexArrow: 0
+  sumEllipse: 3
+  trapezoid: 1 # FIXME: positionning issue
+  mxgraph.arrows2.arrow: 1
+  mxgraph.basic.pentagon: 1
+  mxgraph.electrical.logic_gates.logic_gate: 3
+  mxgraph.basic.arc: 1
+  mxgraph.basic.half_circle: 1
+  mxgraph.basic.partConcEllipse: 1
+  mxgraph.azure.computer: 1
+  mxgraph.azure.cloud: 1
+  mxgraph.azure.laptop: 1
+  mxgraph.azure.message2: 1
+  mxgraph.azure.mobile: 1
+  mxgraph.azure.server_rack: 1
+  mxgraph.azure.tablet: 1
+  mxgraph.aws4.user: 1
+  mxgraph.ios7.icons.trashcan: 2
+  mxgraph.gcp2.globe_world: 1
+  mxgraph.gcp2.speed: 8
+  mxgraph.mscae.enterprise.cluster_server: 1
+  mxgraph.mscae.enterprise.gateway: 1
+  mxgraph.mscae.enterprise.network_card: 1
+  mxgraph.mscae.enterprise.router: 1
+  mxgraph.mscae.enterprise.wireless_connection: 1
+  mxgraph.mscae.enterprise.workstation_client: 1
+  mxgraph.mscae.intune.account_portal: 1
+  mxgraph.networks.hub: 19 # individual ethernet ports...
+  mxgraph.networks.server: 12 # individual ellipses and rectangles
+  mxgraph.weblogos.phone: 1
+  mxgraph.weblogos.rss: 1

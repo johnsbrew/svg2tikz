@@ -1,0 +1,38 @@
+# FILE_IO:
+
+# NB: relative paths are a mess, should be managed from the point of view of the config file ...
+INPUT_DIR :  "example"
+INPUT_FILENAME :  "internet_topology.drawio.svg"
+
+OUTPUT_DIR: "example/output"
+OUTPUT_FILENAME :  "internet_topology.tex"
+
+STANDALONE_TEX: True
+NO_SCALE_DEF: False
+NO_COLOR_DEFS: False
+
+# ANIMATION: overlay specs
+OVERLAYS:
+  default: "<1-7>" # always until attack
+  users: "<1-2>"
+  gen_devices: 
+    default: "<3>"
+    HuqE1C0zurAJJOl7Irtk-325: "<3>" # generic => ISP
+    HuqE1C0zurAJJOl7Irtk-326: "<3-4>"
+    HuqE1C0zurAJJOl7Irtk-327: "<3-5>"
+  devices: "<3-7>"
+  hierarchical: 
+    HuqE1C0zurAJJOl7Irtk-166: "<4-7>" # ISPs
+    HuqE1C0zurAJJOl7Irtk-167: "<5-7>" # NSPs
+    HuqE1C0zurAJJOl7Irtk-171: "<6-7>" # CSPs
+    default: "<7>" # services
+
+  mail: "<0>" # hidden
+  attack: "<8>"
+  hierarchical_fade: "<8>"
+  background_attack: "<8>"
+  devices_attack: "<8>"
+  vac: "<0>" #hidden
+  POP: "<0>" # hidden
+
+
