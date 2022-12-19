@@ -65,7 +65,10 @@ def main():
   if not conf['NO_COLOR_DEFS']:
     tex = '\n'.join(colors.getColorDefs()) + '\n' + tex
   if conf['STANDALONE_TEX']:
-    tex = PREAMBLE + '\n' + tex + '\n' + FOOTER
+    if conf['STANDALONE_IS_BEAMER']:
+      tex = '\documentclass{beamer}\n' + PREAMBLE + '\n\\begin{frame}\n' + tex + '\n\end{frame}\n' + FOOTER
+    else:  
+      tex = '\documentclass{standalone}\n' + PREAMBLE + '\n' + tex + '\n' + FOOTER
 
   # WRITE RESULT TO FILE
   with open(conf['OUTPUT_FILE'], 'w') as tikz:

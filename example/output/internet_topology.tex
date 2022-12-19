@@ -1,9 +1,19 @@
+\documentclass{beamer}
 
-\documentclass{standalone}
 \usepackage{tikz}
 \usepackage[sc]{mathpazo}
 \begin{document}
 
+%% WARNING: due to # char, this should be inserted outside of frame environment
+\tikzset{
+  invisible/.style={opacity=0},
+  visible on/.style={alt={#1{}{invisible}}},
+  alt/.code args={<#1>#2#3}{%
+    \alt<#1>{\pgfkeysalso{#2}}{\pgfkeysalso{#3}} % \pgfkeysalso doesn't change the path
+  },
+}
+
+\begin{frame}
 \definecolor{draw_darkblue1}{RGB}{104, 129, 179} %% #6881b3
 \definecolor{draw_grey}{RGB}{204, 204, 204} %% #cccccc
 \definecolor{green_phone}{RGB}{54, 190, 15} %% #36be0f
@@ -1145,5 +1155,6 @@
 
 \end{tikzpicture}
 
+\end{frame}
 
 \end{document}

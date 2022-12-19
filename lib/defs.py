@@ -5,10 +5,18 @@ from .config import App
 #################################
 
 PREAMBLE="""
-\\documentclass{standalone}
 \\usepackage{tikz}
 \\usepackage[sc]{mathpazo}
 \\begin{document}
+
+%% WARNING: due to # char, this should be inserted outside of frame environment
+\\tikzset{
+  invisible/.style={opacity=0},
+  visible on/.style={alt={#1{}{invisible}}},
+  alt/.code args={<#1>#2#3}{%
+    \\alt<#1>{\\pgfkeysalso{#2}}{\\pgfkeysalso{#3}} % \\pgfkeysalso doesn't change the path
+  },
+}
 """
 
 # NB: CODE TO SCALE EFFICIENTLY a tikzpicture:
