@@ -172,13 +172,24 @@ class MxGraph(object):
 
   @staticmethod
   def getEmbeddedDrawDiagram(content, xmlOutput=None):
-    mxTree = xml.fromstring(urllib.parse.unquote(content))
-    # only one child: encoded diagram
-    diag = MxGraph.decodeDrawDiagram(mxTree[0].text)
+    unquoted = urllib.parse.unquote(content)
+    mxTree = xml.fromstring(unquoted)
+    # only one child: either encoded diagram or raw diagram
+    # for curious reason some newer versions does not seem to compress the diagram anymore ...?
+
+    if not mxTree[0].text.strip() == '':
+      diag = MxGraph.decodeDrawDiagram(mxTree[0].text)
+      diagRoot = xml.fromstring(diag)
+      mode = 'w'
+    else:
+      diagRoot = mxTree[0][0]
+      diag = xml.tostring(diagRoot)
+      mode = 'wb'
+
     if xmlOutput:
-      with open(xmlOutput, 'w') as f:
+      with open(xmlOutput, mode) as f:
         f.write(diag)
-    diagRoot = xml.fromstring(diag)
+        
     return diagRoot[0] # only one <root></root> container at root
 
   @staticmethod
@@ -257,6 +268,7 @@ class MxGraph(object):
             'style': style
           }
           self.groups[child.attrib['id']] = {
+            'name': name,
             'parent': "0", 
             'children': [], 
             'overlays': specs, 

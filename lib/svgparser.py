@@ -352,9 +352,31 @@ def getTransforms(transform):
 
   return transforms
 
+def getRawPath(commands):
+  path = []
+  for cmd in commands:
+    match cmd['action']:
+      case 'move':
+        path.append((cmd['x'], cmd['y']))
+
+      case 'line':
+        path.append((cmd['x'], cmd['y']))
+
+      case 'close':
+        path.append(path[0])
+
+      case others:
+        print("TODO: {}".format(cmd['action']))
+  
+  return path
+
 def processPath(path):
 
   commands = getPathCmd(path.attrib['d'])
+
+  # Here we can add additional parsing of commands
+  rawPath = getRawPath(commands)
+
   # potentially multiple traces per paths 
   (traces, points) = cmdToPath(commands)
   tikz = getColoredDrawCommand(path.attrib)
@@ -374,7 +396,7 @@ def processPath(path):
     tikz['transforms'] = getTransforms(path.attrib['transform'])
 
   tikz['content'] = {}
-
+  tikz['points'] = rawPath
 
   return tikz
 

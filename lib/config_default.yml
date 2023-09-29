@@ -8,6 +8,7 @@ DEP_DIR: "graphics" # relative to OUTPUT_DIR, used for extracted files
 
 # TEX_OPTIONS:
 STANDALONE_TEX: False #True :  ready to compile .tex file ; False :  intended to be included with \input
+STANDALONE_IS_BEAMER: True
 NO_SCALE_DEF: True # skip scale def to allow external control
 NO_COLOR_DEFS: True # skip color defs to allow external control
 
